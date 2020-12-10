@@ -1,21 +1,28 @@
-import { CartItem } from './CartItem';
-import { Validation } from './Validation';
+import { ICartItem } from "./CartItem";
+import { Validation } from "./Validation";
 
-export class OrderItem {
-    
-    item: CartItem;
-    amount: number;
+export interface IOrderItem {
+  item: ICartItem;
+  amount: number;
+  totalPrice: number;
+  changeQuantity(amount: number): void;
+}
 
-    constructor(item: CartItem, amount: number) {
-        Validation.isNumberValid(amount);
-        this.item = item;
-        this.amount = amount;
-    }
+export class OrderItem implements IOrderItem {
+  item: ICartItem;
+  amount: number;
+  totalPrice: number;
 
-    changeQuantity(amount: number): void {
+  constructor(item: ICartItem, amount: number) {
+    Validation.isIntegerPositive(amount);
+    this.item = item;
+    this.amount = amount;
+    this.totalPrice = this.item.priceWithDiscount * this.amount;
+  }
 
-        Validation.isNumberValid(amount);
-        this.amount = amount;        
-
-    }
+  changeQuantity(amount: number): void {
+    Validation.isIntegerPositive(amount);
+    this.amount = amount;
+    this.totalPrice = this.item.priceWithDiscount * amount;
+  }
 }
