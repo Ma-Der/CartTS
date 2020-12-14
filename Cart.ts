@@ -49,7 +49,16 @@ export class Cart implements ICart {
 
   addItem(item: ICartItem, amount: number): void {
     Validation.isNumberPositive(amount);
+
     const order = new OrderItem(item, amount);
+    
+    for(const orderFromList of this.cartList) {
+      if(orderFromList.item.uuid === item.uuid){
+        orderFromList.amount += amount;
+        return;
+      }
+    }
+    
     this.cartList.push(order);
   }
 
@@ -71,10 +80,10 @@ export class Cart implements ICart {
   }
 
   cartSummary(): number | string {
+    if (this.cartList.length === 0) return "Cart empty.";
     const result = this.cartList.reduce((acc, el) => {
       return (acc += el.totalPrice - el.totalPrice * (this.discount / 100));
     }, 0);
-    if (result === 0) return "Cart empty.";
     return result;
   }
 
