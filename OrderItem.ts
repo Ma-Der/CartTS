@@ -6,6 +6,7 @@ export interface IOrderItem {
   amount: number;
   totalPrice: number;
   changeQuantity(amount: number): void;
+  _countTotalPrice(amount: number): void;
 }
 
 export class OrderItem implements IOrderItem {
@@ -23,6 +24,12 @@ export class OrderItem implements IOrderItem {
   changeQuantity(amount: number): void {
     Validation.isIntegerPositive(amount);
     this.amount = amount;
+    this._countTotalPrice(amount);
+  }
+
+  _countTotalPrice(amount: number): void {
+    Validation.isIntegerPositive(amount);
     this.totalPrice = this.item.priceWithDiscount * amount;
   }
+}
 }
