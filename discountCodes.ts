@@ -1,15 +1,15 @@
 interface discounts {
-  [bestReader: string]: number;
-  midBestReader: number;
-  midReader: number;
-  newReader: number;
+  [bestClient: string]: number;
+  midBestClient: number;
+  midClient: number;
+  newClient: number;
   noDiscount: number;
 }
 
 export const discountCodes: discounts = {
-    bestReader: 30,
-    midBestReader: 25,
-    midReader: 20,
-    newReader: 5,
+    bestClient: 30,
+    midBestClient: 25,
+    midClient: 20,
+    newClient: 5,
     noDiscount: 0
   }

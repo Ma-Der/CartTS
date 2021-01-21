@@ -23,7 +23,7 @@ export class Validation {
     this.isNumberPositive(value);
     this.isNumberPositive(min);
     this.isNumberPositive(max);
-    if (!(value >= 0 || value <= 100)) {
+    if (!(value >= 0 && value <= 100)) {
       throw new Error(
         "Discount is a percentage number. Its value needs to be beetween 0 and a 100."
       );
